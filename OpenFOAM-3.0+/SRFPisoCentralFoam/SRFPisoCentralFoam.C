@@ -91,6 +91,8 @@ int main(int argc, char *argv[])
             #include "readTimeControls.H"
             #include "setDeltaT.H"
         }
+	
+	#include "readFieldBounds.H"
 
         runTime++;
 

@@ -101,4 +101,26 @@ solve
 
 #include "compressibleContinuityErrs.H"
 
+if (min(p) < pMin || max(p) > pMax)
+{
+	p.max(pMin);
+	p.min(pMax);
+	p.correctBoundaryConditions();
+}
+
+// Bound the velocity
+/*volScalarField magUrel = mag(Urel);
+
+if (max(magUrel) > UrelMax)
+{
+	volScalarField Urellimiter =
+	    pos(magUrel - UrelMax)*UrelMax/(magUrel + smallUrel)
+	    + neg(magUrel - UrelMax);
+	Urellimiter.max(scalar(0));
+	Urellimiter.min(scalar(1));
+
+	Urel *= Urellimiter;
+	Urel.correctBoundaryConditions();
+}*/
+
 rho = thermo.rho();
