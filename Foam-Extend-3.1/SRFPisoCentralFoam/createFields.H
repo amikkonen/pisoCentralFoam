@@ -33,11 +33,11 @@ autoPtr<SRF::SRFModel> SRF
 );
 
 // Create the absolute velocity
-volVectorField U
+volVectorField Uabs
 (
     IOobject
     (
-        "U",
+        "Uabs",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,

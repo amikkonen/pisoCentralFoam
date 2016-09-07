@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 	// --- Solve turbulence
 	turbulence->correct();
 
-	U = Urel + SRF->U();
+	Uabs = Urel + SRF->U();
 	
 	dpdt = fvc::ddt(p);
 	
