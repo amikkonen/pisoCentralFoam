@@ -30,9 +30,11 @@
       rDeltaT.dimensionedInternalField() = max
         (
 	 1/dimensionedScalar("maxDeltaT", dimTime, maxDeltaT),
-	 fvc::surfaceSum( mag(phi) )().dimensionedInternalField()
-	 /((2*maxCo)*mesh.V())
-	 );
+	 (
+	  0.5 * fvc::surfaceSum( mag(phi) )().dimensionedInternalField()
+	  /mesh.V()/ rho.dimensionedInternalField()
+	 )/maxCo 
+	);
     }
     else if ( CourantType == "faceCourant" )
     {
