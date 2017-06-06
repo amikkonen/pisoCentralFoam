@@ -1,24 +1,22 @@
 {
     volScalarField& rDeltaT = trDeltaT.ref();
 
-    scalar maxCo
-    (
-        readScalar(runTime.controlDict().lookup("maxCo")) //0.8 is default
-    );
-
     scalar rDeltaTSmoothingCoeff
     (
-        readScalar(runTime.controlDict().lookup("rDeltaTSmoothingCoeff")) // 0.02 is default
+        runTime.controlDict().lookupOrDefault<scalar>
+        (
+            "rDeltaTSmoothingCoeff",
+            0.02
+        )
     );
 
     scalar rDeltaTDampingCoeff
     (
-        readScalar(runTime.controlDict().lookup("rDeltaTDampingCoeff")) // 1.0 is default - no damping
-    );
-
-    scalar maxDeltaT
-    (
-        readScalar(runTime.controlDict().lookup("maxDeltaT")) // GREAT - is a default
+        runTime.controlDict().lookupOrDefault<scalar>
+        (
+            "rDeltaTDampingCoeff",
+            1.0
+        )
     );
 
     volScalarField rDeltaT0("rDeltaT0", rDeltaT);
