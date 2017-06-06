@@ -22,20 +22,6 @@
     volScalarField rDeltaT0("rDeltaT0", rDeltaT);
 
 
-
-    // Seems like there is a bug here somewhere.
-    // if CourantType == "cellCourant" gives the following error: 
-    //    --> FOAM FATAL ERROR: 
-    //Arguments of max have different dimensions
-    //     dimensions : [0 0 -1 0 0 0 0] and [1 -3 -1 0 0 0 0]
-
-
-    //    From function Foam::dimensionSet Foam::max(const Foam::dimensionSet&, const Foam::dimensionSet&)
-    //    in file dimensionSet/dimensionSet.C at line 231.
-
-    //FOAM aborting
-
-
     if ( CourantType == "cellCourant" )
     {
         // Set the reciprocal time-step from the local Courant number
@@ -43,11 +29,9 @@
         rDeltaT.ref() = max
         (
 	  1/dimensionedScalar("maxDeltaT", dimTime, maxDeltaT),
-	  
-	      // I'm guessing the error is here.
           (
 	      0.5 * fvc::surfaceSum(mag(phi))()()
-	      /mesh.V()
+	      /mesh.V() / rho.ref()
 	      )/ maxCo
         );
     }
